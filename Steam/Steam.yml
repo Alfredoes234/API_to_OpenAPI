@@ -8,21 +8,14 @@ servers:
   - url: https://api.steampowered.com/
     description: Steam api server
 tags:
-  - name: user
-    description: Everything about your Pets
+  - name: Data
+    description: Everything that is used to get data
     externalDocs:
       description: Find out more
-      url: http://swagger.io
-  - name: server
-    description: Access to Petstore orders
-    externalDocs:
-      description: Find out more about our store
-      url: http://swagger.io
-  - name: user
-    description: Operations about user
+      url: https://developer.valvesoftware.com/wiki/Steam_Web_API
 
 paths:
-  /ISteamNews/GetNewsForApp/v0002:
+  /ISteamNews/GetNewsForApp/v0002/:
     get:
       summary: returns game news by appid.
       parameters:

@@ -1,0 +1,64 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Sample API'
+  description: Buy or rent spacecrafts
+
+servers:
+  - url: https://embed.gog.com/
+    description: Embeded gog server
+  - url: https://auth.gog.com/
+    description: GOG authentication redirect
+  - url: https://www.gog.com/
+    description: Default website server
+
+paths:
+    /auth:
+        get:
+            summary: Sends you to the login page so use a web client
+            parameters:
+              - in: query
+                name: client_id
+                schema:
+                    type: string
+                example: Use 46899977096215655
+                description: Used to publicly identify apps
+              - in: query
+                name: redirect_uri
+                schema:
+                    type: string
+                example: Use https://embed.gog.com/on_login_success?origin=client
+                description: Where to redirect after auth
+              - in: query
+                name: response_type
+                schema:
+                    type: string
+                example: Use code
+                description: No clue what this defines
+              - in: query
+                name: layout
+                schema:
+                    type: string
+                example: use client2
+                description: No clue what this defines
+            responses:
+              "200":
+                description: Authorization token
+                content:
+                  application/http:
+                      schema:
+                        type: string
+                      example: https://<IP/DOMAIN>/token?code=<YOUR_AUTH_CODE>
+                  
+
+components:
+  responses:
+        UnauthorizedError:
+            description: Access token is missing or invalid
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+security:
+  - bearerAuth: []

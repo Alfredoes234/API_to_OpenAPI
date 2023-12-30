@@ -1,0 +1,141 @@
+openapi: "3.0.0"
+info:
+  version: "1.0.0"
+  title: "Sample API"
+  description: Buy or rent spacecrafts
+
+servers:
+  - url: https://api.steampowered.com/
+    description: Steam api server
+tags:
+  - name: user
+    description: Everything about your Pets
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: server
+    description: Access to Petstore orders
+    externalDocs:
+      description: Find out more about our store
+      url: http://swagger.io
+  - name: user
+    description: Operations about user
+
+paths:
+  /ISteamNews/GetNewsForApp/v0002:
+    get:
+      summary: returns game news by appid.
+      parameters:
+        - in: query
+          name: appid
+          schema:
+            type: integer
+          description: AppID of the game
+        - in: query
+          name: count
+          schema:
+            type: integer
+          description: amount of entries returned
+        - in: query
+          name: maxlength
+          schema:
+            type: integer
+          description: Max length a news entry can be
+        - in: query
+          name: format
+          schema:
+            type: string
+          description: Output format. json (default), xml or vdf
+      responses:
+        "200":
+          description: JSON object of data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  appnews:
+                    type: object
+                    properties:
+                      appid:
+                        type: integer
+                      newsitems:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            gid:
+                              type: integer
+                            title:
+                              type: string
+                            url:
+                              type: string
+                            is_external_url:
+                              type: boolean
+                            author:
+                              type: string
+                            contents:
+                              type: string
+                            feedlabel:
+                              type: string
+                            date:
+                              type: integer
+                            feedname:
+                              type: string
+                            feedtype:
+                              type: integer
+                            appid:
+                              type: integer
+                            tags:
+                              type: array
+                              items:
+                                type: string
+            application/xml:
+              schema:
+                type: object
+                properties:
+                  appnews:
+                    type: object
+                    xml:
+                      name: "appnews"
+                    properties:
+                      appid:
+                        type: integer
+                        xml:
+                          name: "appid"
+                      newsitems:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            gid:
+                              type: integer
+                            title:
+                              type: string
+                            url:
+                              type: string
+                            is_external_url:
+                              type: boolean
+                            author:
+                              type: string
+                            contents:
+                              type: string
+                            feedlabel:
+                              type: string
+                            date:
+                              type: integer
+                            feedname:
+                              type: string
+                            feedtype:
+                              type: integer
+                            appid:
+                              type: integer
+                            tags:
+                              type: array
+                              items:
+                                type: string
+
+        "403":
+          description: Using non-valid parameters
+
+      deprecated: false

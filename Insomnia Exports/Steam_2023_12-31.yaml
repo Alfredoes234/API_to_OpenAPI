@@ -1,0 +1,210 @@
+_type: export
+__export_format: 4
+__export_date: 2023-12-31T14:32:48.532Z
+__export_source: insomnia.desktop.app:v8.5.1
+resources:
+  - _id: req_db516656191d41c296288c2b8b9df2a7
+    parentId: wrk_49bb9ef8630944afb16aae22fed57e74
+    modified: 1704032877787
+    created: 1704032785964
+    url: http://api.steampowered.com/ISteamNews/GetNewsForApp/v0002?appid=440&count=3&maxlength=300&format=json
+    name: GetNews
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/8.5.1
+    authentication: {}
+    metaSortKey: -1704032785964
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: wrk_49bb9ef8630944afb16aae22fed57e74
+    parentId: null
+    modified: 1703963983807
+    created: 1703963983807
+    name: Steam.yaml
+    description: ""
+    scope: design
+    _type: workspace
+  - _id: env_6683cdc619b69963a70eb4eee5b82de81733d15f
+    parentId: wrk_49bb9ef8630944afb16aae22fed57e74
+    modified: 1703963983812
+    created: 1703963983812
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1703963983812
+    _type: environment
+  - _id: jar_6683cdc619b69963a70eb4eee5b82de81733d15f
+    parentId: wrk_49bb9ef8630944afb16aae22fed57e74
+    modified: 1703963983814
+    created: 1703963983814
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
+  - _id: spc_7e4035f7489b49398bbd9125e7aea36f
+    parentId: wrk_49bb9ef8630944afb16aae22fed57e74
+    modified: 1704020671660
+    created: 1703963994136
+    fileName: Steam.yaml
+    contents: >
+      openapi: "3.0.0"
+
+      info:
+        version: "1.0.0"
+        title: "Steam API"
+        description: Game supplier and distributor
+        contact:
+          name: OpenAPI spec creator
+          email: alfie.rayner30@gmail.com
+
+      servers:
+        - url: https://api.steampowered.com
+          description: Steam api server
+      tags:
+        - name: Data
+          description: Everything that is used to get data
+          externalDocs:
+            description: Find out more
+            url: https://developer.valvesoftware.com/wiki/Steam_Web_API
+
+      paths:
+        /ISteamNews/GetNewsForApp/v0002:
+          get:
+            summary: returns game news by appid.
+            description: GetNewsForApp returns the latest of a game specified by its appID.
+            operationId: GetNewsForApp
+            tags:
+              - "Data"
+            parameters:
+              - in: query
+                name: appid
+                schema:
+                  type: integer
+                description: AppID of the game
+              - in: query
+                name: count
+                schema:
+                  type: integer
+                description: amount of entries returned
+              - in: query
+                name: maxlength
+                schema:
+                  type: integer
+                description: Max length a news entry can be
+              - in: query
+                name: format
+                schema:
+                  type: string
+                description: Output format. json (default), xml or vdf
+            responses:
+              "200":
+                description: JSON object of data
+                content:
+                  application/json:
+                    schema:
+                      type: object
+                      properties:
+                        appnews:
+                          type: object
+                          properties:
+                            appid:
+                              type: integer
+                            newsitems:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  gid:
+                                    type: integer
+                                  title:
+                                    type: string
+                                  url:
+                                    type: string
+                                  is_external_url:
+                                    type: boolean
+                                  author:
+                                    type: string
+                                  contents:
+                                    type: string
+                                  feedlabel:
+                                    type: string
+                                  date:
+                                    type: integer
+                                  feedname:
+                                    type: string
+                                  feedtype:
+                                    type: integer
+                                  appid:
+                                    type: integer
+                                  tags:
+                                    type: array
+                                    items:
+                                      type: string
+                  application/xml:
+                    schema:
+                      type: object
+                      properties:
+                        appnews:
+                          type: object
+                          xml:
+                            name: "appnews"
+                          properties:
+                            appid:
+                              type: integer
+                              xml:
+                                name: "appid"
+                            newsitems:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  gid:
+                                    type: integer
+                                  title:
+                                    type: string
+                                  url:
+                                    type: string
+                                  is_external_url:
+                                    type: boolean
+                                  author:
+                                    type: string
+                                  contents:
+                                    type: string
+                                  feedlabel:
+                                    type: string
+                                  date:
+                                    type: integer
+                                  feedname:
+                                    type: string
+                                  feedtype:
+                                    type: integer
+                                  appid:
+                                    type: integer
+                                  tags:
+                                    type: array
+                                    items:
+                                      type: string
+
+              "403":
+                description: Using non-valid parameters
+
+            deprecated: false
+    contentType: yaml
+    _type: api_spec
+  - _id: uts_9adc42f471ea4d8091c0174efb442fd7
+    parentId: wrk_49bb9ef8630944afb16aae22fed57e74
+    modified: 1704032910498
+    created: 1704032910498
+    name: New Suite
+    _type: unit_test_suite

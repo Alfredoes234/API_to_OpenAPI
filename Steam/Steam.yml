@@ -4,14 +4,14 @@ info:
   title: "Steam API"
   description: Game supplier and distributor
   contact:
-    name: OpenAPI spec creator
+    name: OpenAPI spec creator (Not-affiliated)
     email: alfie.rayner30@gmail.com
 
 servers:
   - url: https://api.steampowered.com
     description: Steam api server
 tags:
-  - name: Data
+  - name: Web
     description: Everything that is used to get data
     externalDocs:
       description: Find out more
@@ -24,7 +24,7 @@ paths:
       description: GetNewsForApp returns the latest of a game specified by its appID.
       operationId: GetNewsForApp
       tags:
-        - "Data"
+        - "Web"
       parameters:
         - in: query
           name: appid

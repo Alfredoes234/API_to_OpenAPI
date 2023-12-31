@@ -4,7 +4,7 @@ info:
   title: "GOG API"
   description: Game supplier and distributor
   contact:
-    name: OpenAPI spec creator
+    name: OpenAPI spec creator (Not-affiliated)
     email: alfie.rayner30@gmail.com
 
 servers:

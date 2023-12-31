@@ -3,9 +3,12 @@ info:
   version: "1.0.0"
   title: "Steam API"
   description: Game supplier and distributor
+  contact:
+    name: OpenAPI spec creator
+    email: alfie.rayner30@gmail.com
 
 servers:
-  - url: https://api.steampowered.com/
+  - url: https://api.steampowered.com
     description: Steam api server
 tags:
   - name: Data
@@ -15,9 +18,13 @@ tags:
       url: https://developer.valvesoftware.com/wiki/Steam_Web_API
 
 paths:
-  /ISteamNews/GetNewsForApp/v0002/:
+  /ISteamNews/GetNewsForApp/v0002:
     get:
       summary: returns game news by appid.
+      description: GetNewsForApp returns the latest of a game specified by its appID.
+      operationId: GetNewsForApp
+      tags:
+        - "Data"
       parameters:
         - in: query
           name: appid
@@ -127,8 +134,6 @@ paths:
                               type: array
                               items:
                                 type: string
-
         "403":
           description: Using non-valid parameters
-
       deprecated: false

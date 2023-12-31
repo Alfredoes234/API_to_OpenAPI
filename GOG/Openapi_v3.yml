@@ -57,7 +57,7 @@ paths:
           description: No clue what this defines
       responses:
         "200":
-          description: Authorization token
+          description: Authorization token 
           content:
             application/http:
               schema:
@@ -72,3 +72,4 @@ components:
       bearerFormat: JWT
 security:
   - bearerAuth: []
+

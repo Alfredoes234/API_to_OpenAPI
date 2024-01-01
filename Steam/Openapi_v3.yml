@@ -13,32 +13,17 @@ servers:
   - url: https://cdn.cloudflare.steamstatic.com
     description: The server to retieve media
 tags:
-  - name: IAccountCartService
+  - name: Web
+    description: Everything that is used to get data
     externalDocs:
       description: Find out more
-      url: https://steamapi.xpaw.me/#IAccountCartService
-  - name: IAccountLinkingService
+      url: https://steamapi.xpaw.me
+  - name: Media
+    description: Ways to get media from steam
     externalDocs:
       description: Find out more
-      url: https://steamapi.xpaw.me/#IAccountLinkingService
-  - name: IAccountPrivateAppsService
-    externalDocs:
-      description: Find out more
-      url: https://steamapi.xpaw.me/#IAccountPrivateAppsService
-  - name: IAuctionService
-    externalDocs:
-      description: Find out more
-      url: https://steamapi.xpaw.me/#IAuctionService
-  - name: ISteamNews
-    description: User stats
-    externalDocs:
-      description: Find out more
-      url: ttps://steamdb.info/app/10/info/
-  - name: SteamUserStats
-    description: User stats
-    externalDocs:
-      description: Find out more
-      url: ttps://steamdb.info/app/10/info/
+      url: https://steamdb.info/app/10/info/
+
 
 paths:
   /ISteamNews/GetNewsForApp/v0002:
@@ -501,7 +486,7 @@ paths:
       description: Returns a list of achievements for this user by app id
       operationId: GetUserStatsForGame
       tags:
-        - "SteamUserStats"
+        - "Web"
       parameters:
         - in: query
           name: appid
@@ -582,7 +567,7 @@ paths:
       description: Returns a list of games a player owns along with some playtime information, if the profile is publicly visible. Private, friends-only, and other privacy settings are not supported unless you are asking for your own personal details (ie the WebAPI key you are using is linked to the steamid you are requesting).
       operationId: GetOwnedGames
       tags:
-        - "IPlayerService"
+        - "Web"
       parameters:
         - in: query
           name: key
@@ -647,7 +632,7 @@ paths:
       description: Returns a list of games a player has played in the last two weeks, if the profile is publicly visible. Private, friends-only, and other privacy settings are not supported unless you are asking for your own personal details (ie the WebAPI key you are using is linked to the steamid you are requesting).
       operationId: GetRecentlyPlayedGames
       tags:
-        - "IPlayerService"
+        - "Web"
       parameters:
         - in: query
           name: key

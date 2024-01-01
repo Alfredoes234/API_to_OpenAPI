@@ -10,7 +10,7 @@ info:
 servers:
   - url: https://api.steampowered.com
     description: Steam web api server
-  - url: http://media.steampowered.com
+  - url: https://cdn.cloudflare.steamstatic.com
     description: The server to retieve media
 tags:
   - name: Web
@@ -20,6 +20,9 @@ tags:
       url: https://developer.valvesoftware.com/wiki/Steam_Web_API
   - name: Media
     description: Ways to get media from steam
+    externalDocs:
+      description: Find out more
+      url: ttps://steamdb.info/app/10/info/
 
 paths:
   /ISteamNews/GetNewsForApp/v0002:
@@ -716,11 +719,11 @@ paths:
                               type: integer
                             playtime_linux_forever:
                               type: integer
-  /steamcommunity/public/images/apps/{appid}/{hash}.jpg:
-    get: 
-      summary: Returns game image 
-      description: Returns a game image from the appid and the hash of a image (ONLY ON MEDIA SERVER)
-      operationId: GetGameImage
+  /steamcommunity/public/images/apps/{appid}/{hash}.{filetype}:
+    get:
+      summary: returns public game images
+      description: Returns a game icon from the appid and the hash of a image (ONLY ON MEDIA SERVER)
+      operationId: GetGamePublicImage
       tags:
         - "Media"
       parameters:
@@ -733,14 +736,52 @@ paths:
         - in: path
           name: hash
           required: true
-          schema: 
+          schema:
             type: string
           description: The hash from a image used to retieve items
+        - in: path
+          name: filetype
+          required: true
+          schema:
+            type: string
       responses:
         "200":
           description: A picture
           content:
             image/*:
-             schema: 
-               type: string
-               format: binary
+              schema:
+                type: string
+                format: binary
+  /steam/apps/{appid}/{hash}.{filetype}:
+    get:
+      summary: returns steam app images
+      description: Returns a game icon from the appid and the hash of a image (ONLY ON MEDIA SERVER)
+      operationId: GetGameAppImage
+      tags:
+        - "Media"
+      parameters:
+        - in: path
+          name: appid
+          required: true
+          schema:
+            type: integer
+          description: AppID of the game you want the achievements of
+        - in: path
+          name: hash
+          required: true
+          schema:
+            type: string
+          description: The hash from a image used to retieve items
+        - in: path
+          name: filetype
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: A picture
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary

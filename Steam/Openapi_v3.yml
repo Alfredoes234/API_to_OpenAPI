@@ -9,7 +9,7 @@ info:
 
 servers:
   - url: https://api.steampowered.com
-    description: Steam api server
+    description: Steam web api server
 tags:
   - name: Web
     description: Everything that is used to get data
@@ -45,7 +45,7 @@ paths:
           name: format
           schema:
             type: string
-          description: Output format. json (default), xml or vdf
+          description: Output format. json (default), xml or vdf (Not mapped)
       responses:
         "200":
           description: JSON object of data
@@ -155,7 +155,7 @@ paths:
           name: format
           schema:
             type: string
-          description: Output format. json (default), xml or vdf
+          description: Output format. json (default), xml or vdf (Not mapped)
       responses:
         "200":
           description: JSON/XML/VDF object of data
@@ -216,7 +216,7 @@ paths:
           name: format
           schema:
             type: string
-          description: Output format. json (default), xml or vdf
+          description: Output format. json (default), xml or vdf (Not mapped)
       responses:
         "200":
           description: Some data associated with a Steam account may be hidden if the user has their profile visibility set to "Friends Only" or "Private". In that case, only public data will be returned.
@@ -268,7 +268,7 @@ paths:
                             loccityid:
                               type: string
             application/xml:
-              schema: 
+              schema:
                 type: object
                 xml:
                   name: "Response"
@@ -315,3 +315,400 @@ paths:
                               type: string
                             loccityid:
                               type: string
+  /ISteamUser/GetFriendList/v0001:
+    get:
+      summary: Returns friend list
+      description: Returns the friend list of any Steam user, provided their Steam Community profile visibility is set to "Public".
+      operationId: GetFriendList
+      tags:
+        - "Web"
+      parameters:
+        - in: query
+          name: key
+          schema:
+            type: string
+          description: Your steam web api key
+        - in: query
+          name: steamid
+          schema:
+            type: integer
+          description: 64 bit Steam ID to return friend list for.
+        - in: query
+          name: relationship
+          schema:
+            type: string
+          description: Relationship filter. Either all or friend.
+        - in: query
+          name: format
+          schema:
+            type: string
+          description: Output format. json (default), xml or vdf (Not mapped)
+      responses:
+        "200":
+          description: The user's friends list, as an array of friends. Nothing will be returned if the profile is private.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  friendslist:
+                    type: object
+                    properties:
+                      friends:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            steamid:
+                              type: string
+                            relationship:
+                              type: string
+                            friend_since:
+                              type: integer
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: "friendslist"
+                properties:
+                  friends:
+                    type: object
+                    properties:
+                      friend:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            steamid:
+                              type: string
+                            relationship:
+                              type: string
+                            friend_since:
+                              type: integer
+  /ISteamUserStats/GetPlayerAchievements/v0001:
+    get:
+      summary: Returns a list of achievements for the user by app id
+      description: Returns a list of achievements for the user by app id, only of the profile is public
+      operationId: GetPlayerAchievements
+      tags:
+        - "Web"
+      parameters:
+        - in: query
+          name: appid
+          schema:
+            type: integer
+          description: AppID of the game
+        - in: query
+          name: key
+          schema:
+            type: string
+          description: Your steam web api key
+        - in: query
+          name: steamid
+          schema:
+            type: integer
+          description: 64 bit Steam ID to return friend list for.
+        - in: query
+          name: l
+          schema:
+            type: string
+          description: (Optional) Language. If specified, it will return language data for the requested language
+        - in: query
+          name: format
+          schema:
+            type: string
+          description: Output format. json (default), xml or vdf (Not mapped)
+      responses:
+        "200":
+          description: A list of achievements.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  playerstats:
+                    type: object
+                    properties:
+                      SteamID:
+                        type: string
+                      gameName:
+                        type: string
+                      achievements:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            apiname:
+                              type: string
+                            achieved:
+                              type: integer
+                            unlocktime:
+                              type: integer
+                      success:
+                        type: boolean
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: "playerstats"
+                properties:
+                  SteamID:
+                    type: string
+                  gameName:
+                    type: string
+                  achievements:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        achievement:
+                          type: object
+                          properties:
+                            apiname:
+                              type: string
+                            achieved:
+                              type: integer
+                            unlocktime:
+                              type: integer
+                  success:
+                    type: boolean
+  /ISteamUserStats/GetUserStatsForGame/v0002:
+    get:
+      summary: Returns a list of achievements
+      description: Returns a list of achievements for this user by app id
+      operationId: GetUserStatsForGame
+      tags:
+        - "Web"
+      parameters:
+        - in: query
+          name: appid
+          schema:
+            type: integer
+          description: AppID of the game
+        - in: query
+          name: key
+          schema:
+            type: string
+          description: Your steam web api key
+        - in: query
+          name: steamid
+          schema:
+            type: integer
+          description: 64 bit Steam ID to return friend list for.
+        - in: query
+          name: l
+          schema:
+            type: string
+          description: (Optional) Language. If specified, it will return language data for the requested language
+        - in: query
+          name: format
+          schema:
+            type: string
+          description: Output format. json (default), xml or vdf (Not mapped)
+      responses:
+        "200":
+          description: User stats
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  playerstats:
+                    type: object
+                    properties:
+                      SteamID:
+                        type: string
+                      gameName:
+                        type: string
+                      stats:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            value:
+                              type: integer
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: "playerstats"
+                properties:
+                  SteamID:
+                    type: string
+                  gameName:
+                    type: string
+                  stats:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        stat:
+                          type: object
+                          properties:
+                            apiname:
+                              type: string
+                            achieved:
+                              type: integer
+                            unlocktime:
+                              type: integer
+  /IPlayerService/GetOwnedGames/v0001:
+    get:
+      summary: Returns player owned games
+      description: Returns a list of games a player owns along with some playtime information, if the profile is publicly visible. Private, friends-only, and other privacy settings are not supported unless you are asking for your own personal details (ie the WebAPI key you are using is linked to the steamid you are requesting).
+      operationId: GetOwnedGames
+      tags:
+        - "Web"
+      parameters:
+        - in: query
+          name: key
+          schema:
+            type: string
+          description: Your steam web api key
+        - in: query
+          name: steamid
+          schema:
+            type: integer
+          description: 64 bit Steam ID to return friend list for.
+        - in: query
+          name: format
+          schema:
+            type: string
+          description: Output format. json (default), xml or vdf (Not mapped)
+      responses:
+        "200":
+          description: Owned games
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      game_count:
+                        type: integer
+                      games:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            appid:
+                              type: integer
+                            playtime_forever:
+                              type: integer
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: "response"
+                properties:
+                  game_count:
+                    type: integer
+                  games:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: object
+                          properties:
+                            appid:
+                              type: integer
+                            playtime_forever:
+                              type: integer
+  /IPlayerService/GetRecentlyPlayedGames/v0001:
+    get:
+      summary: Returns recently played game
+      description: Returns a list of games a player has played in the last two weeks, if the profile is publicly visible. Private, friends-only, and other privacy settings are not supported unless you are asking for your own personal details (ie the WebAPI key you are using is linked to the steamid you are requesting).
+      operationId: GetRecentlyPlayedGames
+      tags:
+        - "Web"
+      parameters:
+        - in: query
+          name: key
+          schema:
+            type: string
+          description: Your steam web api key
+        - in: query
+          name: steamid
+          schema:
+            type: integer
+          description: 64 bit Steam ID to return friend list for.
+        - in: query
+          name: count
+          schema:
+            type: integer
+          description: (Optional) limit to a certain number of games (the number of games a person has played in the last 2 weeks is typically very small)
+        - in: query
+          name: format
+          schema:
+            type: string
+          description: Output format. json (default), xml or vdf (Not mapped)
+      responses:
+        "200":
+          description: Played games
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  response:
+                    type: object
+                    properties:
+                      total_count:
+                        type: integer
+                      games:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            appid:
+                              type: integer
+                            name:
+                              type: string
+                            playtime_2weeks:
+                              type: integer
+                            playtime_forever:
+                              type: integer
+                            img_icon_url:
+                              type: string
+                            playtime_windows_forever:
+                              type: integer
+                            playtime_mac_forever:
+                              type: integer
+                            playtime_linux_forever:
+                              type: integer
+            application/xml:
+              schema:
+                type: object
+                xml:
+                  name: "response"
+                properties:
+                  total_count:
+                    type: integer
+                  games:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        message:
+                          type: object
+                          properties:
+                            appid:
+                              type: integer
+                            name:
+                              type: string
+                            playtime_2weeks:
+                              type: integer
+                            playtime_forever:
+                              type: integer
+                            img_icon_url:
+                              type: string
+                            playtime_windows_forever:
+                              type: integer
+                            playtime_mac_forever:
+                              type: integer
+                            playtime_linux_forever:
+                              type: integer

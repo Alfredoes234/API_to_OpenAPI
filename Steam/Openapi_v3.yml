@@ -718,9 +718,9 @@ paths:
                               type: integer
   /steamcommunity/public/images/apps/{appid}/{hash}.jpg:
     get: 
-      summary: returns game icon 
-      description: Returns a game icon from the appid and the hash of a image (ONLY ON MEDIA SERVER)
-      operationId: GetGameIcon
+      summary: Returns game image 
+      description: Returns a game image from the appid and the hash of a image (ONLY ON MEDIA SERVER)
+      operationId: GetGameImage
       tags:
         - "Media"
       parameters:
